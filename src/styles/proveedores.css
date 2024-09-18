@@ -1,0 +1,212 @@
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Caveat:wght@400;500;600;700&family=Indie+Flower&family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Shadows+Into+Light&family=Work+Sans:wght@400;800&display=swap');
+
+
+body{
+background-color: #b1b1b1;
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 1,
+  'wght' 700,
+  'GRAD' 250,
+  'opsz' 48
+}
+
+.bodyProv{
+    display: flex;
+    justify-self: center;
+    font-family: 'Istok Web';
+    
+}
+
+/* -------------------------- CONTROL DE BUSQUEDA-----------------*/
+.controlesProveedor{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin: 10px;
+    width: 100%;
+}
+.busqueda{
+    width: 40%;
+    min-width: 200px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    background-size: cover;
+    border: #5E5E5E solid 2px;
+    border-radius: 25px;
+    text-align: center;
+    background-color: #E8E8E8;
+
+}
+
+.busqueda input{
+    width: auto;
+    border: none;
+    border-radius: 25px;
+    text-align: center;
+    background-color: transparent;
+}
+.busqueda button{
+    border: none;
+    background-color: transparent;
+    width: 30px;
+    height: 20px;
+}
+.controlesProveedor button{
+    border: none;
+    background-color: transparent;
+    color: #5C5C5C;
+}
+
+/* ------------------------ FIN CONTROL DE BUSQUEDA-----------------------------*/
+
+/*-------- ESTILO FORMULARIO MODAL NUEVO USUARIO -----------------------*/
+
+.containerNewProv{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+.containerNewProv input{
+    border: none;
+    border-radius: 5px;
+    width: 153px;
+    height: 36px;
+    text-align: center;
+    background-color: #EEEEEE;
+}
+.nuevoProvForm{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.nuevoProvForm label{
+    font-size: 12px;
+    color: #FF8A00;
+    font-weight: bolder;
+}
+.itemProv{
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+}
+.bonotesNewProv{
+    display: flex;
+    flex-direction: row;
+    padding: 20px;
+    margin: 20px;
+}
+
+.bonotesNewProv .btcancelar{
+    border: none;
+    width: 140px;
+    height: 36px;
+    border-radius: 25px;
+    background-color: #5E5E5E;
+    color: #ffffff;
+    margin-right: 5px;
+}
+.bonotesNewProv .btGuardar{
+    border: none;
+    width: 140px;
+    height: 36px;
+    border-radius: 25px;
+    background-color: #FF8A00;
+    color: #ffffff;
+    margin-left: 5px;
+}
+/*----------FIN FORMULARIO MODAL NUEVO USUARIO -------------------------*/
+
+/*---------------------------------- VERSION ESCRITORIO --------------------------*/
+@media(max-width: 1600px){
+    .bodyProv{
+        margin-top: 90px;
+    }
+    .ContainerP{
+        margin-left: 155px;
+    }
+    .tablaRes{
+        width: 100%;
+        text-align: center;
+        padding: 20px;
+        margin: 15px;
+    }
+    .Proveedores{
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        width: 100%;
+        justify-content: center;
+        padding: 20px;
+        background-color: rgb(255, 255, 255);
+        border: #ffffff solid 1px;
+        border-radius: 20px;
+        margin: 20px;
+    }
+    .fila{
+        background-color: #eee;
+        padding: 20px;
+        border: #eee solid 1px;
+        border-radius: 25px;      
+    }
+    .btEditar{
+        background-color: none;
+            color: #5E5E5E;
+        border: none;
+        border-radius: 25px;
+        font-size: 10px;
+        width: 30px;
+        height: 10px;
+        padding-left: 5px;
+        padding-right: 5px ;
+    }
+}
+/*------------------------FIN VERSION ESCRITORIO-----------------*/
+/*--------------------------VERSION MOVIL---------------------*/
+
+@media(max-width: 600px){
+    .bodyProv{
+        margin-top: 70px;
+    }
+    .ContainerP{
+        margin-left: 0px;
+    }
+
+    .Proveedores{
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        width: 100%;
+        justify-content: center;
+        padding: 20px;
+        background-color: rgb(255, 255, 255);
+        border: #ffffff solid 1px;
+        border-radius: 20px;
+        margin: 5px;
+    }
+    .tablaRes{
+        width: 100%;
+        text-align: center;
+        padding: 20px;
+        margin: 15px;
+    }
+        .btEditar{
+            background-color: none;
+            color: #5E5E5E;
+            border: none;
+            border-radius: 25px;
+            font-size: 10px;
+            width: 30px;
+            height: 10px;
+            padding-left: 5px;
+            padding-right: 5px ;
+        }
+    }
+

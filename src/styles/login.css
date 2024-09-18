@@ -1,0 +1,150 @@
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Caveat:wght@400;500;600;700&family=Indie+Flower&family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Shadows+Into+Light&family=Work+Sans:wght@400;800&display=swap');
+
+.bodyLogin{
+  margin: 0;
+  padding: 0;
+  background: url(../assets/ferreteria.jpg);
+  background-size:cover;
+  font-family: Montserrat;
+  height: 115vh;
+  background-position: center;
+    transition: .3s;
+}
+
+@media(max-width: 600px){
+  bodyLogin{
+    margin: 0;
+    padding: 0;
+    background: url(../assets/ferreteria.jpg);
+    font-family: Montserrat;
+    height: 115vh;
+    background-position: center;
+    transition: .3s;
+  }
+}
+.login-box{
+  width: 350px;
+  height: 500px;
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(7.5px);
+  border: hsla(192, 100%, 50%, 0.5) solid 1px;
+  color: #ffffff;
+  top: 50%;
+  left: 50%;
+  position:absolute;
+  transform: translate(-50%, -50%);
+  box-sizing: border-box;
+  padding: 70px 50px;
+  border-radius: 25px;
+  box-shadow: inset;
+
+}
+
+.login-box img{
+  width: 100px;
+  height: 100px;
+  border: #a7afb3 solid 4px;
+  border-radius: 50%;
+  position:absolute;
+  top: 10px;
+  left: calc(-30% + 235px);
+  
+}
+
+.login-box h1{
+  margin: 0;
+  padding-top: 30px;
+  text-align: center;
+  font-size: 22px;
+  font-weight:bold;
+}
+.login-box label{
+  margin: 5px;
+  padding: 0;
+  font-weight:normal;
+  display: block;
+  text-align: center;
+}
+
+.login-box input{
+  width: 100%;
+  margin-bottom: 20px;
+  color: #ffffff;
+  font-weight: bolder;
+}
+
+.login-box input[type="email"],
+.login-box input[type="password"]{
+  padding-top: 10px;
+  border: none;
+  border-bottom: 1px solid #000000;
+  background: transparent;
+  outline: none;
+  height: 40px;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: bolder;
+}
+
+.login-box a{
+
+  text-decoration: none;
+  font-size: 12px;
+  line-height: 20px;
+  color: rgb(255, 255, 255);
+  text-align: center;
+}
+.login-box .botones{
+  padding-top: 15px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.BTenviar{
+  background-color: #1199ce;
+    color: #000000;
+    border: #000000 solid 2px;
+    border-radius: 10px;
+    width: 200px;
+    height: 35px;
+    font-size: small;
+    text-align: center;
+    transition: .5s;
+}
+
+.BTenviar:hover{
+  background-color: #ff0000;
+    color: #ffffff;
+    border: #ff0000 solid 2px;
+    border-radius: 25px;
+    width: 150px;
+    height: 35px;
+    font-size: small;
+    text-align: center;
+    transition: .5s;
+}
+
+
+.registrar{
+  background-color: #ffffff00;
+    color: #ffffff;
+    border: #ffffff solid 2px;
+    border-radius: 25px;
+    width: 150px;
+    height: 35px;
+    font-size: small;
+    text-align: center;
+    transition: .5s;
+}
+
+.registrar:hover{
+  background-color: #ff0000;
+    color: #ffffff;
+    border: #ff0000 solid 2px;
+    border-radius: 25px;
+    width: 150px;
+    height: 35px;
+    font-size: small;
+    text-align: center;
+    transition: .5s;
+}
