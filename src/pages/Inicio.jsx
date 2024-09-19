@@ -1,6 +1,9 @@
 import React from "react";
-import Navbar from "../components/navbar";
-import "../styles/inicio.css";
+//import Navbar from "../components/navbar";
+//import "../styles/inicio.css";
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Sidebar from '../components/Sidebar';
 
 //import styled from 'styled-components';
 //import Modal from './componentes/modal';
@@ -12,22 +15,9 @@ function Inicio() {
   });
   return (
     <>
-      <Navbar />
+      <Sidebar />
 
-      <body className="grid-container">
-        <section className="main">
-          <article className="contenido">
-            <div className="reportes">
-              <h1>Panel</h1>
-              <br />
-            </div>
-            <br></br>
-            <button type="button" className="butonReport">
-              Ver completo
-            </button>
-          </article>
-        </section>
-      </body>
+      
     </>
   );
 }
