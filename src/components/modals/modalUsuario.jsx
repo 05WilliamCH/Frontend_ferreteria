@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-const Modal = ({ children, estado, cambiarEstado, titulo }) => {
+const Modal = ({ children, estado, cambiarEstado, titulo, IDuser }) => {
   return (
     <>
       {estado && (

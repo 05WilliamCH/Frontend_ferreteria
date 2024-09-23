@@ -42,7 +42,7 @@ function Navbar() {
          onClick={() => navegate("/Usuario")}
           >
           <div className="Pedidos">
-            <span className="material-symbols-outlined">smartphone</span>
+            <span className="material-symbols-outlined">settings</span>
             <span>Administracion</span>
           </div>
         </button>
@@ -50,10 +50,10 @@ function Navbar() {
         <button
           type="button"
           className="navB"
-          //onClick={() => navegate("/Compra")}
+          onClick={() => navegate("/Proveedor")}
         >
           <div className="Administrar">
-            <span className="material-symbols-outlined">apartment</span>
+            <span className="material-symbols-outlined">shopping_cart</span>
             <span>Compra</span>
           </div>
         </button>
@@ -61,6 +61,17 @@ function Navbar() {
         <button type="button" className="navB">
           <div className="Inventario">
             <span className="material-symbols-outlined">package_2</span>
+            <span>Inventario</span>
+          </div>
+        </button>
+
+        <button
+          type="button"
+          className="navB"
+          onClick={() => navegate("/Proveedor")}
+        >
+          <div className="Inventario">
+            <span className="material-symbols-outlined">point_of_sale</span>
             <span>Venta</span>
           </div>
         </button>
@@ -71,10 +82,11 @@ function Navbar() {
           onClick={() => navegate("/Proveedor")}
         >
           <div className="Inventario">
-            <span className="material-symbols-outlined">local_shipping</span>
+            <span className="material-symbols-outlined">assessment</span>
             <span>Reportes</span>
           </div>
         </button>
+
       </nav>
     </>
   );

@@ -1,0 +1,96 @@
+.ContenedorSBC{
+
+    display: flex;
+    justify-content: center;
+    min-width: 400px;
+    background-color: #ffffff7c;
+}
+.sidebar{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    height: 50px;
+    min-width: 400px;
+    transition: 0.3s all ease-out;
+    margin-top: 65px;
+    filter: drop-shadow(0px 4px 7px rgba(0, 0, 0, 0.25));
+   
+}
+.sidebar .BTcompras{
+    width: 33%;
+    height: 100%;
+    background-color: #fff;
+    border: none;
+    border-right: 2px solid #6060605e;
+    color: #606060;
+    border-radius:0 ;
+    cursor: pointer;
+    transition: 0.3s all ease-out;
+}
+.sidebar .BTcompras:hover{
+    background-color: #FF8A00;
+    color: #fff;
+    transition: 0.3s all ease-out;
+}
+.sidebar .BTproveedores{
+    width: 34%;
+    height: 100%;
+    background-color: #fff;
+    border: none;
+    border-right: 2px solid #6060605e;
+    color: #606060;
+    cursor: pointer;
+    transition: 0.3s all ease-out;
+}
+
+.sidebar .BTproveedores :checked ~ .BTproveedores{
+    background-color: #FF8A00;
+    color: #fff;
+}
+.sidebar .BTproveedores:hover{
+    background-color: #FF8A00;
+    color: #fff;
+    transition: 0.3s all ease-out;
+}
+.sidebar .BTdevoluciones{
+    width: 33%;
+    height: 100%;
+    background-color: #fff;
+    border: none;
+    border-right: 0px solid #6060605e;
+    color: #606060;
+    cursor: pointer;
+    transition: 0.3s all ease-out;
+}
+.sidebar .BTdevoluciones ::selection ~ .BTdevoluciones{
+    background-color: #FF8A00;
+    color: #fff;
+}
+
+.sidebar .BTdevoluciones:hover{
+    background-color: #FF8A00;
+    color: #fff;
+    transition: 0.3s all ease-out;
+}
+
+@media(min-width: 1200px){
+    .sidebar{
+        display: flex;
+       justify-items: center;
+        margin-top: 105px;
+        margin-left: 170px;
+        width: 50%;
+        flex-direction: row;
+        height: 40px;
+        transition: 0.3s all ease-out;
+    }
+    .sidebar .BTcompras{
+border-radius: 25px 0px 0px 25px;
+    }
+    .sidebar .BTdevoluciones{
+        border-radius: 0px 25px 25px 0px;
+    }
+}

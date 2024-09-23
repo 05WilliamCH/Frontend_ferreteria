@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-const ModalP = ({ children, estado, cambiarEstado, titulo }) => {
+const ModalCategoria = ({ children, estado, cambiarEstado, titulo }) => {
   return (
     <>
       {estado && (
@@ -20,7 +20,7 @@ const ModalP = ({ children, estado, cambiarEstado, titulo }) => {
   );
 };
 
-export default ModalP;
+export default ModalCategoria;
 
 const Overlay = styled.div`
   width: 100vw;

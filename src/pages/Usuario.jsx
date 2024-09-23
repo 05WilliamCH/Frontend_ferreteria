@@ -1,25 +1,32 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom"; //PROTEGER RUTA--UTILIZAR_useEffect
 import swal from "sweetalert2";
-import avatar from "../assets/avatar.jpg";
+import avatar from "../assets/avatar.png";
+import ModalEditUser from "../components/modals/modalUserUp2";
 import Modal from "../components/modals/modalUsuario";
 import Navbar from "../components/navbar";
+import PDFGenerator from "../generarPDF/gUsuarios.jsx";
+
 import "../styles/usuarios.css";
 
 const Usuario = () => {
   const [estadoModal1, cambiarEstadoModal1] = useState(false);
   const [estadoModal2, cambiarEstadoModal2] = useState(false);
+  const [search, setSaerch] = useState("");
+  const [orderAsc, setOrderAsc] = useState(true); // Estado para el orden
 
   //------------------------------------MOSTRAR DATOS DE LOS USUARIOS DESDE EL BACKEND--------------------------------------------------------------
-  const [usuario, setUsuario] = useState([]);
+  const [usuarios, setUsuarios] = useState([]);
 
-  const URL = "http://localhost:3000/usuario";
+  //const URL = import.meta.env.VITE_URL;
+  const URL = "http://localhost:3000/";
   const getData = async () => {
     try {
-      const response = await fetch(URL);
-      const json = await response.json();
-      setUsuario(json);
-      console.log(json);
+      const response = await fetch(URL + "usuario");
+      const datos = await response.json();
+      setUsuarios(datos);
+      console.log(datos);
     } catch (err) {
       console.error(err);
     }
@@ -28,81 +35,53 @@ const Usuario = () => {
     getData();
   }, []);
   //-----------------FIN DE MOSTRAR DATOS DE USUARIOS-----------------------------------
+  
   const { handleSubmit, register } = useForm();
 
   //-----CAPTURAR DATOS DE NUEVO USUARIO------
 
   const enviarUsuario = handleSubmit((data) => {
-    console.log(data);
-    fetch(URL, {
-      method: "POST",
-      headers: { "content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
-    getData();
-    cambiarEstadoModal1(!estadoModal1);
+    try {
+      console.log(data);
+      fetch(URL, {
+        method: "POST",
+        headers: { "content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      getData();
+      cambiarEstadoModal1(!estadoModal1);
+      swal.fire({
+        title: "¡Usuario agregado!",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 1200,
+        customClass: {
+          confirmButton: "btEliminar",
+          cancelButton: "btCancelar",
+          popup: "popus-eliminado",
+          title: "titulo-pop",
+          container: "contenedor-alert",
+        },
+      });
+    } catch (error) {
+      console.log(error.massage);
+    }
   });
 
   // ------------------------- ACTUALIZAR USUARIO ------------------------------------
 
-  const enviarActualizarUsuario = handleSubmit((dataU) => {
-    console.log(dataU);
-    fetch(`http://localhost:3000/usuario/${iduser}`, {
-      method: "PUT",
-      headers: { "content-Type": "application/json" },
-      body: JSON.stringify(dataU),
-    });
-    getData();
-    cambiarEstadoModal2(!estadoModal2);
-  });
+  //--------------------------------- OBTENER DATOS DE USUARIOA A ACTUALIZAR
+  const [idEdit, setIdEdit] = useState("");
 
-  //---------------------------------
+  // //----------------------------------
 
-  // const URLup = `https://8086zfpm-3000.use.devtunnels.ms/usuario/${iduser}`;
-  // const getDataUp = async () => {
-  //   try {
-  //     const response = await fetch(URLup);
-  //     const json = await response.json();
-  //     setUsuario(json);
-  //     console.log(json);
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // };
-  // useEffect(() => {
-  //   getDataUp();
-  // }, []);
-  //-------------version mejorada-------------------
-
-  const [state, setState] = useState({
-    nombre: "",
-    apellido: "",
-    telefono: "",
-    email: "",
-    contrasenia: "",
-  });
-  const handleChange = (event) => {
-    setState((prevProps) => ({
-      ...prevProps,
-      [event.target.name]: event.target.value,
-    }));
-  };
-
-  const handleSubmitU = (event) => {
-    // getDataUp();
-  };
-  //----------------------------------
-
-  // ------------------------ FIN ACTUALIZAR USUARIO ---------------------------------
+  // // ------------------------ FIN ACTUALIZAR USUARIO ---------------------------------
 
   //------------ELIMINAR USUARIO------------------
-  const handleDelete = async (iduser) => {
-    const res = await fetch(
-      `http://localhost:3000/usuario/${iduser}`,
-      {
-        method: "DELETE",
-      }
-    );
+  const handleDelete = async (id_usuario) => {
+    const res = await fetch(URL + `usuario/${id_usuario}`, {
+      method: "DELETE",
+    });
     // const data = await res.json();
     console.log(res);
     // setUsuario(usuario.filter((usuario) => usuario.iduser !== iduser));
@@ -111,7 +90,7 @@ const Usuario = () => {
   // --------------------FIN ELIMINAR USUARIO----------------------
 
   //---------------------ALERTAS ----------------------------------
-  const mostrarAlerta = (iduser) => {
+  const mostrarAlerta = (id_usuario) => {
     swal
       .fire({
         title: "¿Desea eliminar?",
@@ -137,7 +116,7 @@ const Usuario = () => {
       })
       .then((response) => {
         if (response.isConfirmed) {
-          handleDelete(iduser);
+          handleDelete(id_usuario);
 
           swal.fire({
             title: "¡Eliminado!",
@@ -156,6 +135,47 @@ const Usuario = () => {
       });
   };
   //----------------------------FIN DE ALERTAS --------------------------------
+
+  //------------busqueda inteligente -----------------
+  const searcher = (e) => {
+    setSaerch(e.target.value);
+    console.log(e.target.value);
+  };
+  //----metodod de filtrado de busqueda-----
+  let result = [];
+  if (!search) {
+    result = usuarios;
+  } else {
+    result = usuarios.filter((datos) =>
+      datos.nombre.toLowerCase().includes(search.toLowerCase())
+    );
+  }
+
+  const toggleOrder = () => {
+    setOrderAsc(!orderAsc);
+    const sortedUsuarios = [...usuarios].sort((a, b) => {
+      if (orderAsc) {
+        return a.nombre.localeCompare(b.nombre); // Orden ascendente
+      } else {
+        return b.nombre.localeCompare(a.nombre); // Orden descendente
+      }
+    });
+    setUsuarios(sortedUsuarios);
+  };
+
+  /*----Proteger Rutas---Solo se puede accesar SI ESTA LOGEADO */
+  const navegate = useNavigate();
+
+  useEffect(() => {
+    // Comprobar si el token existe en el localStorage
+    const token = localStorage.getItem("token");
+
+    // Si no hay token, redirigir al inicio
+    if (!token) {
+      navegate("/Admin"); // Reemplaza '/inicio' con la ruta a la que quieres redirigir
+    }
+  }, []);
+
   return (
     <>
       <Navbar />
@@ -239,154 +259,115 @@ const Usuario = () => {
           </Modal>
           {/* --------------------------- FIN MODAL INGRESAR NUEVO USUARIO ------------------ */}
           {/* //------------------------------- MODAL PARA EDITAR USUARIO */}
-
-          <Modal
-            estado={estadoModal2}
-            cambiarEstado={cambiarEstadoModal2}
-            titulo="Editar usuario"
-          >
-            <div className="ContenedorEditarUsuario">
-              <form className="nuevoUserForm" onSubmit={handleSubmitU}>
-                <div className="itemUser">
-                  <label>id: </label>
-                  <input
-                    // {...register("iduser")}
-                    type="text"
-                    id="idUser"
-                    placeholder="ID"
-                    value={state.iduser}
-                    onChange={handleChange}
-                  ></input>
-                </div>
-
-                <div className="itemUser">
-                  <label>Nombre: </label>
-                  <input
-                    // {...register("nombre")}
-                    value={state.nombre}
-                    onChange={handleChange}
-                    type="text"
-                    id="nombreUser"
-                    placeholder="Nombre"
-                  ></input>
-                </div>
-
-                <div className="itemUser">
-                  <label>Apellido: </label>
-                  <input
-                    // {...register("apellido")}
-                    value={state.apellido}
-                    onChange={handleChange}
-                    type="text"
-                    id="apellidoUser"
-                    placeholder="Apellido"
-                  ></input>
-                </div>
-
-                <div className="itemUser">
-                  <label>Telefono: </label>
-                  <input
-                    // {...register("telefono")}
-                    value={state.telefono}
-                    onChange={handleChange}
-                    type="number"
-                    id="telefonoUser"
-                    placeholder="Telefono"
-                  ></input>
-                </div>
-
-                <div className="itemUser">
-                  <label>Correo: </label>
-                  <input
-                    // {...register("email")}
-                    value={state.email}
-                    onChange={handleChange}
-                    type="text"
-                    id="emailUser"
-                    placeholder="Correo electronico"
-                  ></input>
-                </div>
-
-                <div className="itemUser">
-                  <label>Contraeña: </label>
-                  <input
-                    // {...register("contrasenia")}
-                    value={state.contrasenia}
-                    onChange={handleChange}
-                    type="text"
-                    id="passwordUser"
-                    placeholder="Contraseña"
-                  ></input>
-                </div>
-
-                <br />
-
-                <div className="bonotesNewUser">
-                  <div>
-                    <button
-                      type="button"
-                      onClick={() => cambiarEstadoModal2(!estadoModal2)}
-                      className="btcancelar"
-                    >
-                      Cancelar
-                    </button>
-                  </div>
-                  <div>
-                    <button
-                      type="submit"
-                      className="btGuardar"
-                      // onSubmit={() => cambiarEstadoModal1(!estadoModal1)}
-                    >
-                      Guardar
-                    </button>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </Modal>
+          <ModalEditUser
+            estado2={estadoModal2}
+            cambiarEstado2={cambiarEstadoModal2}
+            titulo2={"Actualizar usuario"}
+            idEdit={idEdit}
+            setUsuarios={setUsuarios}
+            usuarios={usuarios}
+          ></ModalEditUser>
           {/* //------------------------------ FIN MODAL EDITAR USUARIO */}
 
           {/* //----------------------------------ELIMINAR USUARIO ----------------------------------*/}
-          <div className="controlesUsuario">
-            <button onClick={() => cambiarEstadoModal1(!estadoModal1)}>
-              <span className="material-symbols-outlined">person_add</span>
-            </button>
+          <div className="centrarControles">
+            <div className="controlesUsuario">
+              <button onClick={() => cambiarEstadoModal1(!estadoModal1)}>
+                <span className="material-symbols-outlined">person_add</span>
+              </button>
 
-            <div className="busqueda">
-              <form
-                action="http://localhost:3000/usuario"
-                method="get"
-                className="cuadroBusqueda"
-              >
-                <input
-                  type="text"
-                  placeholder="Buscar usuario"
-                  name="q"
-                ></input>
-                <button type="submit">
-                  <span className="material-symbols-outlined">search</span>
-                </button>
-              </form>
+              <div className="busqueda">
+                <form method="get" className="cuadroBusqueda">
+                  <input
+                    type="text"
+                    onChange={searcher}
+                    placeholder="Buscar usuario"
+                    name="q"
+                  ></input>
+                  <button type="submit">
+                    <span className="material-symbols-outlined">search</span>
+                  </button>
+                </form>
+              </div>
+
+               <button onClick={toggleOrder}>
+                 <span className="material-symbols-outlined">
+                  {orderAsc ? "arrow_upward" : "arrow_downward"}
+                 </span>
+              </button>
+              
+              <PDFGenerator data={usuarios} />
+
+              <button>
+                <span className="material-symbols-outlined" onClick={getData}>
+                  refresh
+                </span>
+              </button>
             </div>
-
-            <button>
-              <span className="material-symbols-outlined">print</span>
-            </button>
-            <button>
-              <span className="material-symbols-outlined">calendar_month</span>
-            </button>
           </div>
+
           <hr></hr>
           <br />
+
+          {/* ------------------------ MOSTRAR USUARIOS VERSION MOVIL --------------------------- */}
           <div className="usuarioMovil">
-            {usuario.map((usuario, index) => (
+            {result.map((usuario, index) => (
               <div className="conenedorPusuario" key={index}>
                 <div className="imgPerfil">
+                  <div className="proveedorID">
+                    <p>ID</p>
+                    <span>{usuario.id_usuario}</span>
+                  </div>
                   <img
                     src={avatar}
                     className="avatar"
-                    // onClick={() => navegate("/Inicio")}
+                    onClick={() =>
+                      cambiarEstadoModal2(!estadoModal2) &
+                      setIdEdit(usuario.id_usuario)
+                    }
                   />
+                </div>
+                <div
+                  className="datoUsuario"
+                  onClick={() =>
+                    cambiarEstadoModal2(!estadoModal2) &
+                    setIdEdit(usuario.id_usuario)
+                  }
+                >
+                  <div>
+                    <h3>
+                      {usuario.nombre} {usuario.apellido}
+                    </h3>
+                  </div>
+                  <div>
+                    <h5>{usuario.email}</h5>
+                  </div>
+                  <div> Telefono: {usuario.telefono}</div>
+                </div>
+                <div className="btControlU">
+                  <button
+                    className="btEditarU"
+                    // onClick={() => cambiarEstadoModal2(!estadoModal2)}
+                  >
+                    <span className="material-symbols-outlined">edit</span>
+                  </button>
+                  <br />
+                  <button
+                    className="btEliminarU"
+                    onClick={() => mostrarAlerta(usuario.id_usuario)}
+                  >
+                    <span className="material-symbols-outlined">delete</span>
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="usuarioEscritorio">
+            {result.map((usuario, index) => (
+              <div className="conenedorPusuario" key={index}>
+                <div className="imgPerfil">
+                  <img src={avatar} className="avatar" />
                 </div>
                 <div className="datoUsuario">
                   <div>
@@ -399,16 +380,21 @@ const Usuario = () => {
                   </div>
                   <div> Telefono: {usuario.telefono}</div>
                 </div>
-                <div className="btControl">
+                <div className="btControlU">
+                  <ModalEditUser idUserEdit={usuario.id_usuario} />
                   <button
-                    className="btEditar"
-                    onClick={() => cambiarEstadoModal2(!estadoModal2)}
+                    className="btEditarU"
+                    onClick={() =>
+                      cambiarEstadoModal2(!estadoModal2) &
+                      setIdEdit(usuario.id_usuario)
+                    }
                   >
                     <span className="material-symbols-outlined">edit</span>
                   </button>
+
                   <button
-                    className="btEditar"
-                    onClick={() => mostrarAlerta(usuario.iduser)}
+                    className="btEliminarU"
+                    onClick={() => mostrarAlerta(usuario.id_usuario)}
                   >
                     <span className="material-symbols-outlined">delete</span>
                   </button>

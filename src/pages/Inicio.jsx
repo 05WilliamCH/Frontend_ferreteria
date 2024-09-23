@@ -1,9 +1,8 @@
 import React from "react";
-//import Navbar from "../components/navbar";
-//import "../styles/inicio.css";
+import Navbar from "../components/navbar";
+import "../styles/inicio.css";
 
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Sidebar from '../components/Sidebar';
+
 
 //import styled from 'styled-components';
 //import Modal from './componentes/modal';
@@ -15,7 +14,7 @@ function Inicio() {
   });
   return (
     <>
-      <Sidebar />
+      <Navbar />
 
       
     </>

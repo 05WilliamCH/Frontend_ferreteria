@@ -21,15 +21,21 @@ background-color: #e0e0e0;
 }
 
 /* -------------------------- CONTROL DE BUSQUEDA-----------------*/
-.controlesUsuario{
+.centrarControles{
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
-    margin: 10px;
-    width: 100%;
+    justify-content: center;
 }
-.busqueda{
-    width: 40%;
+.centrarControles .controlesUsuario{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 10px;
+    width: 50%;
+    min-width: 350px;
+}
+.centrarControles .controlesUsuario .busqueda{
+    width: 60%;
     min-width: 200px;
     height: 30px;
     display: flex;
@@ -37,30 +43,62 @@ background-color: #e0e0e0;
     justify-content: center;
     flex-direction: row;
     background-size: cover;
-    border: #5E5E5E solid 2px;
-    border-radius: 25px;
-    text-align: center;
-    background-color: #E8E8E8;
-
-}
-
-.busqueda input{
-    width: auto;
     border: none;
     border-radius: 25px;
     text-align: center;
-    background-color: transparent;
+   
+
 }
-.busqueda button{
+.centrarControles .controlesUsuario .busqueda .cuadroBusqueda {
+display: flex;
+flex-direction: row;
+justify-content: space-evenly;
+width: 100%;
+height: 100%;
+}
+.controlesUsuario .busqueda .cuadroBusqueda input{
+    display: flex;
+flex-direction: row;
+justify-content: space-evenly;
+width: 100%;
+height: 100%;
+
+    border: #dddddd solid 2px;
+    border-radius: 25px 0px 0px 25px;
+    text-align: center;
+    background-color: #EEE;
+}
+.controlesUsuario .busqueda .cuadroBusqueda  button{
     border: none;
-    background-color: transparent;
-    width: 30px;
-    height: 20px;
+    border-radius:0px 25px 25px 0px;
+    background-color:#5c5c5c15;
+    color: #5C5C5C;
+    width: 50px;
+    height:100%;
+    transition: 0.3s;
+}
+.controlesUsuario .busqueda .cuadroBusqueda  button:hover{
+    border: none;
+    border-radius:0px 25px 25px 0px;
+    background-color:#1199ce;
+    color: #ffffff;
+    width: 50px;
+    height:100%;
+    transition: 0.3s;
 }
 .controlesUsuario button{
     border: none;
     background-color: transparent;
     color: #5C5C5C;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.controlesUsuario button:hover{
+    border: none;
+    background-color: transparent;
+    color: #1199ce;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
 /* ------------------------ FIN CONTROL DE BUSQUEDA-----------------------------*/
@@ -82,7 +120,7 @@ background-color: #e0e0e0;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    z-index: 91;
+    z-index: 50;
 }
 
 .ContenedorEditarUsuario input{
@@ -108,7 +146,7 @@ background-color: #e0e0e0;
 }
 .nuevoUserForm label{
     font-size: 12px;
-    color: #FF8A00;
+    color: #1199ce;
     font-weight: bolder;
 }
 .itemUser{
@@ -137,61 +175,14 @@ background-color: #e0e0e0;
     width: 140px;
     height: 36px;
     border-radius: 25px;
-    background-color: #FF8A00;
+    background-color: #1199ce;
     color: #ffffff;
     margin-left: 5px;
 }
 
 /*----------FIN FORMULARIO MODAL NUEVO USUARIO -------------------------*/
 
-/*------------------USUARIOS LISTADO MEJORADO-----------------------*/
-.conenedorPusuario{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    border: none;
-    background-color: #EEE;
-    width: 95%;
-    height: 80px;
-    border-radius: 50px;
-    margin-bottom: 10px;
-}
-.conenedorPusuario .imgPerfil {
-    width: 85px;
-    height: 85px;
-    position:relative;
 
-}
-.conenedorPusuario .imgPerfil .avatar{
-    width: 85px;
-    height: 85px;
-    border-radius: 50%;
-    position:absolute;
-    top: 0px;
-    left: 0px;
-}
-.datoUsuario{
-    margin-left: 60px;
-    width: 100%;
-    font-family: 'Istok Web';
-    text-align: left;
-}
-.datoUsuario h3{
- font-weight: bold;
- color: #000;
-}
-.datoUsuario h5{
-    font-weight: bold;
-    color: #FF8A00;
-   }
-.btControl{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-}
 /*-----------------------ALERTA--------------------------*/
 .btCancelar{
     border: none;
@@ -207,7 +198,7 @@ background-color: #e0e0e0;
     width: 120px;
     height: 36px;
     border-radius: 25px;
-    background-color: #FF8A00;
+    background-color: #ff0000;
     color: #ffffff;
     margin-right: 5px;
 }
@@ -221,7 +212,7 @@ background-color: #e0e0e0;
     border:  #5E5E5E solid 5px;
 }
 /*---------------------------------- VERSION ESCRITORIO --------------------------*/
-@media(max-width: 1600px){
+@media(min-width: 1201px){
     .popus-class{
         font-family: 'Istok Web';
         border-radius: 20PX;
@@ -237,54 +228,160 @@ background-color: #e0e0e0;
     .bodyUser{
         margin-top: 90px;
     }
-    .ContainerU{
-        margin-left: 155px;
+    .bodyUser .ContainerU{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-left: 160px;
     }
-    .tablaRes{
-        width: 100%;
-        text-align: center;
-        padding: 20px;
-        margin: 15px;
-    }
-    .Usuarios{
+  
+     .Usuarios{
         display: flex;
         flex-direction: column;
         text-align: center;
-        width: 100%;
         justify-content: center;
-        padding: 20px;
+        width: 100%;
+        padding: 2px 20px;
         background-color: rgb(255, 255, 255);
         border: #ffffff solid 1px;
         border-radius: 20px;
-        margin: 20px;
+        margin: 15px 7px;
     }
-    .fila{
-        background-color: #eee;
-        padding: 20px;
-        border: #eee solid 1px;
-        border-radius: 25px;      
+    .Usuarios h2{
+        margin: 0px 0px;
     }
-    .btEditar{
-        background-color: none;
-            color: #5E5E5E;
+    .usuarioEscritorio .conenedorPusuario .btControlU .btEditarU{
+        display: block;
+        justify-content: center;
+        background-color: rgba(92, 92, 92, 1);
+        color: #ffffff;
         border: none;
-        border-radius: 25px;
-        font-size: 10px;
-        width: 30px;
-        height: 10px;
+        border-radius:  25px 0px 0px 25px;
+        cursor: pointer;
+        width: 50px;
+        height: 40px;
         padding-left: 5px;
         padding-right: 5px ;
+        transition: 0,3s;
     }
+    .usuarioEscritorio .conenedorPusuario .btControlU .btEditarU:hover{
+        display: block;
+        justify-content: center;
+        background-color: rgba(92, 92, 92, 0.5);
+        color: #ffffff;
+        border: none;
+        border-radius:  25px 0px 0px 25px;
+        cursor: pointer;
+        width: 50px;
+        height: 40px;
+        padding-left: 5px;
+        padding-right: 5px ;
+        transition: 0,3s;
+    }
+    .usuarioEscritorio .conenedorPusuario .btControlU .btEliminarU{
+        justify-content: center;
+        background-color: rgb(255, 0, 0);
+        color: #ffffff;
+        border: none;
+        border-radius:  0px 25px 25px 0px;
+        cursor: pointer;
+        width: 50px;
+        height: 40px;
+        padding-left: 5px;
+        padding-right: 5px ;
+        transition: 0,3s;
+    }
+    .usuarioEscritorio .conenedorPusuario .btControlU .btEliminarU:hover{
+        justify-content: center;
+        background-color: rgba(255, 136, 0, 0.5);
+        color: #ffffff;
+        border: none;
+        border-radius:  0px 25px 25px 0px;
+        cursor: pointer;
+        width: 50px;
+        height: 40px;
+        padding-left: 5px;
+        padding-right: 5px ;
+        transition: 0,3s;
+    }
+    
+    .usuarioEscritorio .conenedorPusuario .btControlU{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        width: 180px;
+        margin: 0 4px;
+    
+    }
+    
+
+
+    /*------------------USUARIOS LISTADO MEJORADO VERSION ESCRITORIO----------------------*/
+    .usuarioMovil{
+        display: none;
+     }
+     .usuarioEscritorio .conenedorPusuario{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    border: none;
+    background-color: #EEE;
+    width: 100%;
+    height: 80px;
+    border-radius: 50px;
+    margin-bottom: 10px;
+    transition: 0.3s all ease-out;
+}
+.usuarioEscritorio .conenedorPusuario .imgPerfil {
+    width: 85px;
+    height: 85px;
+    position:relative;
+    transition: 0.3s all ease-out;
+}
+.usuarioEscritorio .conenedorPusuario .imgPerfil .avatar{
+    width: 85px;
+    height: 85px;
+    border-radius: 50%;
+    position:absolute;
+    top: 0px;
+    left: 0px;
+    transition: 0.3s all ease-out;
+}
+.usuarioEscritorio .conenedorPusuario .datoUsuario{
+    margin-left: 60px;
+    width: 100%;
+    font-family: 'Istok Web';
+    text-align: left;
+}
+.usuarioEscritorio .conenedorPusuario .datoUsuario h3{
+ font-weight: bold;
+ color: #000;
+}
+.usuarioEscritorio .conenedorPusuario .datoUsuario h5{
+    font-weight: bold;
+    color: #1199ce;
+   }
+   .usuarioEscritorio .conenedorPusuario .btControl{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
 }
 /*------------------------FIN VERSION ESCRITORIO-----------------*/
-/*--------------------------VERSION MOVIL---------------------*/
 
-@media(max-width: 600px){
+
+/*--------------------------------------VERSION TABLET ---------------------------*/
+
+@media(max-width: 1200px){
     .popus-class{
         font-family: 'Istok Web';
         font-size: 16px;
         border-radius: 20PX;
-        width: 80%;
+        width: 400px;
         min-width: 300px;
         transition: 0,3s;
 
@@ -314,28 +411,276 @@ background-color: #e0e0e0;
         text-align: center;
         width: 100%;
         justify-content: center;
+        padding: 0px 20px;
+        background-color: rgb(255, 255, 255);
+        border: #ffffff solid 1px;
+        border-radius: 20px;
+        margin: 5px;
+    }
+  
+ 
+    .usuarioEscritorio .conenedorPusuario .btControlU .btEditarU{
+        display: block;
+        justify-content: center;
+        background-color: rgba(92, 92, 92, 1);
+        color: #ffffff;
+        border: none;
+        border-radius:  25px 0px 0px 25px;
+        cursor: pointer;
+        width: 50px;
+        height: 40px;
+        padding-left: 5px;
+        padding-right: 5px ;
+        transition: 0,3s;
+    }
+    .usuarioEscritorio .conenedorPusuario .btControlU .btEditarU:hover{
+        display: block;
+        justify-content: center;
+        background-color: rgba(92, 92, 92, 0.5);
+        color: #ffffff;
+        border: none;
+        border-radius:  25px 0px 0px 25px;
+        cursor: pointer;
+        width: 50px;
+        height: 40px;
+        padding-left: 5px;
+        padding-right: 5px ;
+        transition: 0,3s;
+    }
+    .usuarioEscritorio .conenedorPusuario .btControlU .btEliminarU{
+        justify-content: center;
+        background-color: rgb(255, 0, 0);
+        color: #ffffff;
+        border: none;
+        border-radius:  0px 25px 25px 0px;
+        cursor: pointer;
+        width: 50px;
+        height: 40px;
+        padding-left: 5px;
+        padding-right: 5px ;
+        transition: 0,3s;
+    }
+    .usuarioEscritorio .conenedorPusuario .btControlU .btEliminarU:hover{
+        justify-content: center;
+        background-color: rgba(255, 136, 0, 0.5);
+        color: #ffffff;
+        border: none;
+        border-radius:  0px 25px 25px 0px;
+        cursor: pointer;
+        width: 50px;
+        height: 40px;
+        padding-left: 5px;
+        padding-right: 5px ;
+        transition: 0,3s;
+    }
+    
+    .usuarioEscritorio .conenedorPusuario .btControlU{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        width: 180px;
+        margin: 0 4px;
+        transition: 0.3s all ease-out;
+    }
+     /*------------------USUARIOS LISTADO MEJORADO VERSION TABLET-----------------------*/
+
+     .usuarioMovil{
+        display: none;
+     }
+     .usuarioEscritorio{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+   
+    }
+    .usuarioEscritorio .conenedorPusuario {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    border: none;
+    background-color: #EEE;
+    width: 100%;
+    height: 65px;
+    border-radius: 50px;
+    margin-bottom: 10px;
+    transition: 0.3s all ease-out;
+}
+.usuarioEscritorio .conenedorPusuario  .imgPerfil {
+    width: 65px;
+    height: 65px;
+    position:relative;
+    transition: 0.3s all ease-out;
+}
+.usuarioEscritorio .conenedorPusuario  .imgPerfil .avatar{
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    position:absolute;
+    top: 0px;
+    left: 0px;
+    transition: 0.3s all ease-out;
+}
+.usuarioEscritorio .conenedorPusuario .datoUsuario{
+    margin-left: 60px;
+    width: 100%;
+    font-family: 'Istok Web';
+    text-align: left;
+    font-size: 12px;
+}
+.usuarioEscritorio .conenedorPusuario .datoUsuario h3{
+ font-weight: bold;
+ color: #000;
+ font-size: 16px;
+}
+.usuarioEscritorio .conenedorPusuario .datoUsuario h5{
+    font-weight: bold;
+    color: #1199ce;
+    font-size: 12px;
+   }
+
+    }
+
+/*---------------------------------- FIN VERSION TABLET ---------------------------*/ 
+
+
+/*--------------------------VERSION MOVIL---------------------*/
+
+@media(max-width: 600px){
+    .popus-class{
+        font-family: 'Istok Web';
+        font-size: 12px;
+        border-radius: 20PX;
+        width: 80%;
+        min-width: 300px;
+        transition: 0,3s;
+
+    }
+
+    .popus-eliminado{
+        font-family: 'Istok Web';
+        font-size: 16px;
+        border-radius: 20PX;
+        width: 80%;
+        min-width: 300px;
+        transition: 0,3s;
+        padding-bottom: 40px;
+
+    }
+    .bodyUser{
+        margin-top: 70px;
+        margin-bottom: 75px;
+    }
+    .ContainerU{
+        margin-left: 0px;
+    }
+
+    .Usuarios{
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        justify-content: center;
+        width: 100%;
+        min-width: 400px;
         padding: 20px;
         background-color: rgb(255, 255, 255);
         border: #ffffff solid 1px;
         border-radius: 20px;
         margin: 5px;
     }
-    .tablaRes{
-        width: 100%;
-        text-align: center;
-        padding: 20px;
-        margin: 15px;
-    }
-        .btEditar{
-            background-color: none;
-            color: #5E5E5E;
+   
+    .Usuarios .usuarioMovil .conenedorPusuario .btControlU .btEditarU{
+            display: none;
+            background-color: #5C5C5C;
+            color: #ffffff;
             border: none;
             border-radius: 25px;
-            font-size: 10px;
-            width: 30px;
-            height: 10px;
+            font-size: 7px;
+            width: 40px;
+            height: 40px;
             padding-left: 5px;
             padding-right: 5px ;
         }
+        .Usuarios .usuarioMovil .conenedorPusuario .btControlU .btEliminarU{
+            background-color: #5C5C5C;
+            color: #ffffff;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            padding-left: 5px;
+            padding-right: 5px ;
+            transition: 0.3s all ease-out;
+        }
+    
+
+        .Usuarios .usuarioMovil .conenedorPusuario .btControlU{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            width: 180px;
+            margin-left: 5px;
+            margin-right: 5px;
+            transition: 0.3s all ease-out;
+        }
+
+
+        /*------------------USUARIOS LISTADO MEJORADO MOVIL-----------------------*/
+        .usuarioEscritorio{
+            display: none;
+        }
+        .Usuarios .usuarioMovil{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+    }
+    .Usuarios .usuarioMovil .conenedorPusuario {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    border: none;
+    background-color: #EEE;
+    width: 100%;
+    height: 65px;
+    min-width: 300px;
+    border-radius: 50px;
+    margin-bottom: 10px;
+    transition: 0.3s all ease-out;
+}
+.Usuarios .usuarioMovil .conenedorPusuario  .imgPerfil {
+    width: 65px;
+    height: 65px;
+    position:relative;
+
+}
+.Usuarios .usuarioMovil .conenedorPusuario  .imgPerfil .avatar{
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    position:absolute;
+    top: 0px;
+    left: 0px;
+}
+.Usuarios .usuarioMovil .conenedorPusuario .datoUsuario{
+    margin-left: 60px;
+    width: 100%;
+    font-family: 'Istok Web';
+    text-align: left;
+    font-size: 12px;
+}
+.Usuarios .usuarioMovil .conenedorPusuario .datoUsuario h3{
+ font-weight: bold;
+ color: #000;
+ font-size: 16px;
+}
+.Usuarios .usuarioMovil .conenedorPusuario .datoUsuario h5{
+    font-weight: bold;
+    color: #1199ce;
+    font-size: 12px;
+   }
+
     }
 

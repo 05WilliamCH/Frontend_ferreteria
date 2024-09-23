@@ -82,17 +82,17 @@
         /*background: url(../assets/panes.jpg);*/
         background-size:cover;
         background-position: center;
-        background-color: #1199ce;
+        background-color: #ffffff;
         position: fixed;
         top: 0;
         font-size: large;
-        height: 100px;
+        height: 85px;
         width: 100%;
         z-index: 95;
         transition: 0.3s;
     }
     .header h2{
-        color: #ffffff;
+        color: #000000;
         text-align: center;
         justify-content: center;
         padding-top: 20px;
@@ -100,13 +100,13 @@
         text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.70);
     }
     .header img{
-        width: 65px;
-        height: 65px;
-        border: #ffffff80 solid 3px;
+        width: 60px;
+        height: 60px;
+        border: #000000 solid 3px;
         border-radius: 50%;
         position:absolute;
         top: 17%;
-        left: 5%;
+        right: 5%; /*MOVER AL LADO DERECHO*/
         z-index: 92;
         cursor: pointer;
     }
@@ -119,8 +119,8 @@
         /* margin-top: 100px; */
         width: 160px ;
         height: 100%;
-        z-index: 90;
-        background-color:#ffffff;
+        z-index: 95;
+        background-color:#1199ce;
         font-family: 'Istok Web';
         font-size: small;
         padding-top: 30vh;
@@ -134,12 +134,12 @@
     .navbarUMG button{
         border: none;
         background-color: transparent;
-        color: #5C5C5C;
+        color: #000000;
         padding-left: 20px;
     }
     .navbarUMG button:hover{
         border: none;
-        background-color: #ff6600;
+        background-color: #1199ce;
         color: #ffffff;
         width: 100%;
         height: auto;
@@ -266,7 +266,7 @@
         border: none;
         justify-content: center;
         background-color: transparent;
-        color: #ff6600;
+        color: #1199ce;
         width: auto;
         height: auto;
         border-radius: 5px;
@@ -277,7 +277,7 @@
         border: none;
         justify-content: center;
         background-color: transparent;
-        color: #ff6600;
+        color: #1199ce;
         width: auto;
         height: auto;
         border-radius: 5px;
