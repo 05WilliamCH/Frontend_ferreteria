@@ -16,6 +16,10 @@ const Usuario = () => {
   const [search, setSaerch] = useState("");
   const [orderAsc, setOrderAsc] = useState(true); // Estado para el orden
 
+  const [currentPage, setCurrentPage] = useState(1); // Página actual
+  const [usersPerPage] = useState(5); // Número de usuarios por página
+
+
   //------------------------------------MOSTRAR DATOS DE LOS USUARIOS DESDE EL BACKEND--------------------------------------------------------------
   const [usuarios, setUsuarios] = useState([]);
 
@@ -40,16 +44,23 @@ const Usuario = () => {
 
   //-----CAPTURAR DATOS DE NUEVO USUARIO------
 
-  const enviarUsuario = handleSubmit((data) => {
+  const enviarUsuario = handleSubmit(async (data) => {
     try {
       console.log(data);
-      fetch(URL, {
+      const response = await fetch(URL + "usuario", {
         method: "POST",
-        headers: { "content-Type": "application/json" },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Error al insertar el usuario");
+      }
+  
       getData();
       cambiarEstadoModal1(!estadoModal1);
+  
       swal.fire({
         title: "¡Usuario agregado!",
         icon: "success",
@@ -64,9 +75,16 @@ const Usuario = () => {
         },
       });
     } catch (error) {
-      console.log(error.massage);
+      console.error("Error:", error.message); // Esto imprimirá el mensaje de error en la consola
+      swal.fire({
+        title: "Error",
+        text: error.message,
+        icon: "error",
+        confirmButtonText: "Ok",
+      });
     }
   });
+  
 
   // ------------------------- ACTUALIZAR USUARIO ------------------------------------
 
@@ -163,6 +181,24 @@ const Usuario = () => {
     setUsuarios(sortedUsuarios);
   };
 
+// Índices para la paginación
+const indexOfLastUser = currentPage * usersPerPage;
+const indexOfFirstUser = indexOfLastUser - usersPerPage;
+const currentUsers = result.slice(indexOfFirstUser, indexOfLastUser);
+
+const totalPages = Math.ceil(result.length / usersPerPage);
+
+  // Ajustar currentPage si excede totalPages
+  useEffect(() => {
+    if (currentPage > totalPages) {
+      setCurrentPage(totalPages);
+    }
+  }, [result.length, totalPages]);
+
+ // Ajustar a la primera página si result cambia
+ useEffect(() => {
+  setCurrentPage(1); // Regresar a la primera página cuando cambien los resultados
+}, [result]);
   /*----Proteger Rutas---Solo se puede accesar SI ESTA LOGEADO */
   const navegate = useNavigate();
 
@@ -175,6 +211,7 @@ const Usuario = () => {
       navegate("/Admin"); // Reemplaza '/inicio' con la ruta a la que quieres redirigir
     }
   }, []);
+
 
   return (
     <>
@@ -311,7 +348,7 @@ const Usuario = () => {
 
           {/* ------------------------ MOSTRAR USUARIOS VERSION MOVIL --------------------------- */}
           <div className="usuarioMovil">
-            {result.map((usuario, index) => (
+            {currentUsers.map((usuario, index) => (
               <div className="conenedorPusuario" key={index}>
                 <div className="imgPerfil">
                   <div className="proveedorID">
@@ -364,7 +401,7 @@ const Usuario = () => {
           </div>
 
           <div className="usuarioEscritorio">
-            {result.map((usuario, index) => (
+            {currentUsers.map((usuario, index) => (
               <div className="conenedorPusuario" key={index}>
                 <div className="imgPerfil">
                   <img src={avatar} className="avatar" />
@@ -402,7 +439,33 @@ const Usuario = () => {
               </div>
             ))}
           </div>
+          {/* Paginated navigation */}
+        <div className="pagination">
+          <button
+            onClick={() => setCurrentPage(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
+            Anterior
+          </button>
+
+          {Array.from({ length: totalPages }, (_, index) => (
+            <button
+              key={index + 1}
+              onClick={() => setCurrentPage(index + 1)}
+              className={currentPage === index + 1 ? "active" : ""}
+            >
+              {index + 1}
+            </button>
+          ))}
+
+          <button
+            onClick={() => setCurrentPage(currentPage + 1)}
+            disabled={currentPage === totalPages}
+          >
+            Siguiente
+          </button>
         </div>
+      </div>
       </div>
     </>
   );
