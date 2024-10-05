@@ -7,7 +7,6 @@ import ModalEditUser from "../components/modals/modalUserUp2";
 import Modal from "../components/modals/modalUsuario";
 import Navbar from "../components/navbar";
 import PDFGenerator from "../generarPDF/gUsuarios.jsx";
-
 import "../styles/usuarios.css";
 
 const Usuario = () => {
@@ -439,6 +438,7 @@ const totalPages = Math.ceil(result.length / usersPerPage);
               </div>
             ))}
           </div>
+          
           {/* Paginated navigation */}
         <div className="pagination">
           <button

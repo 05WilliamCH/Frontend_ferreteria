@@ -17,12 +17,15 @@ const Categoria = () => {
   const [categorias, setCategorias] = useState([]);
   const [orderAsc, setOrderAsc] = useState(true); // Estado para el orden
 
+  const [currentPage, setCurrentPage] = useState(1); // Página actual
+  const [usersPerPage] = useState(5); // Número de usuarios por página
+  
   //const URL = import.meta.env.VITE_URL;
   const URL = "http://localhost:3000/";
 
   const getData = async () => {
     try {
-      const response = await fetch(URL + "categoria");
+      const response = await fetch(URL + "categorias");
       const datos = await response.json();
       setCategorias(datos);
       console.log(datos);
@@ -35,14 +38,23 @@ const Categoria = () => {
   }, []);
   // // // // //-----CAPTURAR DATOS DE NUEVO PROVEEDOR------//
   const { handleSubmit, register } = useForm();
-  const enviarCategoria = handleSubmit((data) => {
+  const enviarCategoria = handleSubmit(async(data) => {
+
+    try{
     console.log(data);
-    fetch(URL + "categoria", {
+    const response = await fetch(URL + "categorias", {
       method: "POST",
-      headers: { "content-Type": "application/json" },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || "Error al insertar el usuario");
+    }
+    getData();
     cambiarEstadoModal1(!estadoModal1);
+
     swal.fire({
       title: "Categoria Agregado!",
       icon: "success",
@@ -56,18 +68,21 @@ const Categoria = () => {
         container: "contenedor-alert",
       },
     });
-    getData();
-    // (document.getElementById("email").value = null),
-    //   (document.getElementById("nit").value = null),
-    //   (document.getElementById("nombre_proveedor").value = null),
-    //   (document.getElementById("telefono_prov").value = null),
-    //   (document.getElementById("direccion_prov").value = null);
+  } catch (error) {
+    console.error("Error:", error.message); // Esto imprimirá el mensaje de error en la consola
+    swal.fire({
+      title: "Error",
+      text: error.message,
+      icon: "error",
+      confirmButtonText: "Ok",
+    });
+    }
   });
 
   //-----------------ELIMINAR PORVEEDOR---------------------------------
 
   const handleDelete = async (idcategoria) => {
-    const res = await fetch(URL + `categoria/${idcategoria}`, {
+    const res = await fetch(URL + `categorias/${idcategoria}`, {
       method: "DELETE",
     });
     // const data = await res.json();
@@ -158,6 +173,25 @@ const Categoria = () => {
     });
     setCategorias(sortedCategorias);
   };
+
+      // Índices para la paginación
+const indexOfLastUser = currentPage * usersPerPage;
+const indexOfFirstUser = indexOfLastUser - usersPerPage;
+const currentUsers = result.slice(indexOfFirstUser, indexOfLastUser);
+
+const totalPages = Math.ceil(result.length / usersPerPage);
+
+  // Ajustar currentPage si excede totalPages
+  useEffect(() => {
+    if (currentPage > totalPages) {
+      setCurrentPage(totalPages);
+    }
+  }, [result.length, totalPages]);
+
+ // Ajustar a la primera página si result cambia
+ useEffect(() => {
+  setCurrentPage(1); // Regresar a la primera página cuando cambien los resultados
+}, [result]);
 
     /*----Proteger Rutas---Solo se puede accesar SI ESTA LOGEADO */
     const navegate = useNavigate();
@@ -319,7 +353,7 @@ const Categoria = () => {
 
           {/* //----------------VERSION MOVIL ------------------------------ */}
           <div className="proveedorMovil">
-            {result.map((categorias, index) => (
+            {currentUsers.map((categorias, index) => (
               <div className="ContenedorProveedores" key={index}>
                 <div className="imgPerfil">
                   <div className="proveedorID">
@@ -401,7 +435,7 @@ const Categoria = () => {
               </div>
             </div>
 
-            {result.map((categoria, index) => (
+            {currentUsers.map((categoria, index) => (
               <div className="ContenedorProveedores" key={index}>
                 <div className="imgPerfil">
                   <div className="proveedorID">
@@ -455,6 +489,33 @@ const Categoria = () => {
                 </div>
               </div>
             ))}
+          </div>
+
+           {/* Paginated navigation */}
+        <div className="pagination">
+          <button
+            onClick={() => setCurrentPage(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
+            Anterior
+          </button>
+
+          {Array.from({ length: totalPages }, (_, index) => (
+            <button
+              key={index + 1}
+              onClick={() => setCurrentPage(index + 1)}
+              className={currentPage === index + 1 ? "active" : ""}
+            >
+              {index + 1}
+            </button>
+          ))}
+
+          <button
+            onClick={() => setCurrentPage(currentPage + 1)}
+            disabled={currentPage === totalPages}
+          >
+            Siguiente
+          </button>
           </div>
         </div>
       </div>

@@ -19,7 +19,7 @@ const ModalupCategoria = ({
 
   const getDataUp = async (idcategoria) => {
     try {
-      const response = await fetch(URL + `categoria/${idcategoria}`, {
+      const response = await fetch(URL + `categorias/${idcategoria}`, {
         headers: { "content-Type": "application/json" },
       });
       const categoria = await response.json();
@@ -67,7 +67,7 @@ const ModalupCategoria = ({
     //console.log(dataProduct);
 
     try {
-      const response = await fetch(URL + `categoria/${categoriaUP.idcategoria}`, {
+      const response = await fetch(URL + `categorias/${categoriaUP.idcategoria}`, {
         method: "PUT",
         body: JSON.stringify(categoriaUP),
         headers: {
@@ -244,6 +244,7 @@ const ModalupCategoria = ({
           </ContenedorModal>
         </Overlay>
       )}
+
     </>
   );
 };

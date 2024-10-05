@@ -684,6 +684,9 @@ height: 100%;
 
     }
 
+
+/*Para paginacion*/
+    
     .pagination {
         display: flex;
         justify-content: center;

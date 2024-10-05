@@ -320,3 +320,24 @@
     transition: 0.3s;
 }
 }
+
+.submenu {
+  display: flex;
+  flex-direction: column;
+  background-color: #e0e0e0;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.submenu button {
+  background-color: #ffffff;
+  border: none;
+  margin-top: 5px;
+  padding: 8px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.submenu button:hover {
+  background-color: #d0d0d0;
+}
